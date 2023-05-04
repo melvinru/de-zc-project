@@ -11,9 +11,9 @@ WITH daily_temperature AS (
     SELECT
         DATE,
         NAME,
-        TMAX / 10.0 AS max_temperature,
-        TMIN / 10.0 AS min_temperature,
-        TAVG / 10.0 AS avg_temperature
+        IFNULL(TMAX, TMIN) / 10.0 AS max_temperature,
+        IFNULL(TMIN, TMAX) / 10.0 AS min_temperature,
+        IFNULL(TAVG, (TMIN+TMAX/2)) / 10.0 AS avg_temperature
     FROM
         {{ source('staging','climate') }}
 )
