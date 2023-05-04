@@ -1,0 +1,60 @@
+version: 2
+
+sources:
+  - name: staging
+    database: titanium-vortex-385513
+    schema: de_zc_project_dev
+
+    tables:
+      - name: climate
+
+models:
+    - name: stg_climate  
+      description: >
+        The Global Historical Climatology Network - Daily (GHCN-Daily) dataset integrates daily climate observations
+        from approximately 30 different data sources
+        Daily Summaries Station Details
+        Name	OJMJAKON, RS
+        Network:ID	GHCND:RSM00024688
+        Latitude/Longitude	63.25°, 143.15°
+        Elevation	740 m
+        PERIOD OF RECORD
+        Start Date	1943-01-01
+        End Date	2023-04-30
+        Data Coverage	100%
+      columns:
+          - name: Date
+          - name: NAME
+          - name: max_temperature
+            tests:
+              - not_null:
+                  severity: warn
+          - name: min_temperature
+            tests:
+              - not_null:
+                  severity: warn
+          - name: avg_temperature
+            tests:
+              - not_null:
+                  severity: warn
+          - name: temperature_range
+          - name: rolling_yearly_avg_temperature
+    - name: stg_cold_climate    
+      description: >
+        The Global Historical Climatology Network - Daily (GHCN-Daily) dataset integrates daily climate observations
+        from approximately 30 different data sources
+        Daily Summaries Station Details
+        Name	OJMJAKON, RS
+        Network:ID	GHCND:RSM00024688
+        Latitude/Longitude	63.25°, 143.15°
+        Elevation	740 m
+        PERIOD OF RECORD
+        Start Date	1943-01-01
+        End Date	2023-04-30
+        Data Coverage	100%
+      columns:
+          - name: Date
+          - name: min_temperature
+            tests:
+              - not_null:
+                  severity: warn
