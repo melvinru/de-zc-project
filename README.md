@@ -101,4 +101,4 @@ Design dashboard
 Share your dashboard
 In Google Looker Studio, to share your dashboard, you need to press the "Share" button in the top right corner of the screen.
 
-## And don't forget shutting down and removing the instance
+## And don't forget to switch off and delete the instance.
