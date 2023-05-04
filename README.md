@@ -1,4 +1,3 @@
-# de-zc-project
 # This is the final project for Data Engineering ZoomCamp 2023
 
 I have selected a dataset containing climate data because it is an essential and relevant topic in today's world. Climate change has a significant impact on our environment, economy, and society. By analyzing this data and presenting it on a dashboard, we can help raise awareness about climate change, its consequences, and the need for sustainable practices.
