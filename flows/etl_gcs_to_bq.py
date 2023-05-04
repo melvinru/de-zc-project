@@ -31,7 +31,7 @@ def write_bq(df: pd.DataFrame) -> None:
     gcp_credentials_block = GcpCredentials.load("de-zc-prefect-cred")
 
     df.to_gbq(
-        destination_table="de_zc_project_stage.climate",
+        destination_table="de_zc_project_dev.climate",
         project_id="titanium-vortex-385513",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
         chunksize=5_000,
