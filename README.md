@@ -30,13 +30,15 @@ This tile shows that recent years are generally warmer than previous years.
 ## Technologies
 The technologies that were chosen to use are the following:
 
-Cloud: GCP
-Data Lake (DL): GCS
-Data Warehouse (DWH): BigQuery
-Infrastructure as code (IaC): Terraform
-Workflow Orchestation: Prefect
-Transforming Data: DBT
-Data Visualization: Looker Studio
+    Cloud: GCP
+    Data Lake (DL): GCS
+    Data Warehouse (DWH): BigQuery
+    Infrastructure as code (IaC): Terraform
+    Workflow Orchestation: Prefect
+    Transforming Data: DBT
+    Data Visualization: Looker Studio
+
+![Architecture diagram](media/Architecture%20Diagram.png)
 
 ## Data Source
 Dataset was taken from [National Centers for Environmental Information](https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00861/html)
