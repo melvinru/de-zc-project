@@ -44,7 +44,7 @@ Create a pipeline for moving the data from the lake to a data warehouse (BigQuer
 ## Step 3: Data transformation
 Transform the data in the data warehouse with dbt tool to prepare it for the dashboard.
 
-[DBT Model](/de-zc-project/dbt)
+[DBT Model](/dbt)
 
 ## Step 4: Dashboard creation
 Create a dashboard to visualize the transformed climate data.
@@ -77,9 +77,9 @@ Create the new project in Google Cloud Console
 
 [Requirements](requirements.txt)
 
-[Terraform](/de-zc-project/terraform)
+[Terraform](/terraform)
 
-[Docker compose](/de-zc-project/docker)
+[Docker compose](/docker)
 
 [Jupyter notebook](flows/Untitled.ipynb)
 
@@ -100,3 +100,5 @@ Design dashboard
 
 Share your dashboard
 In Google Looker Studio, to share your dashboard, you need to press the "Share" button in the top right corner of the screen.
+
+## And don't forget shutting down and removing the instance
