@@ -1,4 +1,4 @@
-# This is the final project for Data Engineering ZoomCamp 2023
+# This is the final project for [Data Engineering Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp) by [DataTalks Club](https://datatalks.club)
 
 ## Introduction
 
