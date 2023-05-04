@@ -28,5 +28,8 @@ SELECT
     ROUND(AVG(avg_temperature) OVER (ORDER BY DATE ROWS BETWEEN 364 PRECEDING AND CURRENT ROW), 2) AS rolling_yearly_avg_temperature
 FROM
     daily_temperature
+WHERE
+    max_temperature is not null
+    and min_temperature is not null
 ORDER BY
     DATE
