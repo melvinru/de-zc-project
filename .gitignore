@@ -3,3 +3,9 @@
 /terraform/.terraform.lock.hcl
 /terraform/.terraform.tfstate
 /terraform/.terraform.tfstate.backup
+/.idea/.gitignore
+/.idea/de-zc-project.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
