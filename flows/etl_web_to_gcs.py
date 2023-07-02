@@ -7,7 +7,9 @@ import requests
 
 @task()
 def fetch_station_list() -> dict:
-    """Fetches and returns a dictionary of station details."""
+    """
+    Fetches and returns a dictionary of station details
+    """
     url = "https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/doc/ghcnd-stations.txt"
     response = requests.get(url)
     lines = response.text.split("\n")
@@ -30,20 +32,26 @@ def fetch_station_list() -> dict:
 
 @task()
 def generate_dataset_url(station: str) -> str:
-    """Generates dataset URL"""
+    """
+    Generates dataset URL
+    """
     return f"https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/access/{station}.csv"
 
 
 @task(retries=3)
 def fetch(dataset_url: str) -> pd.DataFrame:
-    """Read station data from web into pandas DataFrame"""
+    """
+    Read station data from web into pandas DataFrame
+    """
     df = pd.read_csv(dataset_url)
     return df
 
 
 @task(log_prints=True)
 def clean(df: pd.DataFrame) -> pd.DataFrame:
-    """Fix dtype issues"""
+    """
+    Fix dtype issues
+    """
     df["DATE"] = pd.to_datetime(df["DATE"])
     df["ELEVATION"] = pd.to_numeric(df["ELEVATION"], downcast="integer")
     df["LATITUDE"] = pd.to_numeric(df["LATITUDE"], downcast="float")
@@ -60,7 +68,9 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
 
 @task()
 def write_local(df: pd.DataFrame, dataset_file: str) -> Path:
-    """Write DataFrame out locally as parquet file"""
+    """
+    Write DataFrame out locally as parquet file
+    """
     path = Path(f"{dataset_file}.parquet")
     df.to_parquet(path, compression="gzip")
     return path
@@ -68,7 +78,9 @@ def write_local(df: pd.DataFrame, dataset_file: str) -> Path:
 
 @task()
 def write_gcs(path: Path) -> None:
-    """Upload local parquet file to GCS"""
+    """
+    Upload local parquet file to GCS
+    """
     gcs_block = GcsBucket.load("de-zc-prefect-climate")
     gcs_block.upload_from_path(from_path=path, to_path=path)
     return
@@ -76,7 +88,9 @@ def write_gcs(path: Path) -> None:
 
 @task()
 def etl_process(df, dataset_file):
-    """Process the ETL steps."""
+    """
+    Process the ETL steps
+    """
     df_clean = clean(df)
     path = write_local(df_clean, dataset_file)
     write_gcs(path)
@@ -84,7 +98,9 @@ def etl_process(df, dataset_file):
 
 @flow()
 def etl_web_to_gcs(station: str = "RSM00024688") -> None:
-    """The main ETL function."""
+    """
+    The main ETL function
+    """
     stations = fetch_station_list()
 
     if station not in stations:
