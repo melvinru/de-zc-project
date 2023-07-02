@@ -5,6 +5,35 @@ from prefect_gcp.cloud_storage import GcsBucket
 import requests
 
 
+@task()
+def fetch_station_list() -> dict:
+    """Fetches and returns a dictionary of station details."""
+    url = "https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/doc/ghcnd-stations.txt"
+    response = requests.get(url)
+    lines = response.text.split("\n")
+    stations = {}
+
+    for line in lines:
+        if line:
+            station_id = line[:11].strip()
+            latitude = line[12:20].strip()
+            longitude = line[21:30].strip()
+            elevation = line[31:37].strip()
+            stations[station_id] = {
+                "latitude": latitude,
+                "longitude": longitude,
+                "elevation": elevation,
+            }
+
+    return stations
+
+
+@task()
+def generate_dataset_url(station: str) -> str:
+    """Generates dataset URL"""
+    return f"https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/access/{station}.csv"
+
+
 @task(retries=3)
 def fetch(dataset_url: str) -> pd.DataFrame:
     """Read station data from web into pandas DataFrame"""
@@ -43,35 +72,6 @@ def write_gcs(path: Path) -> None:
     gcs_block = GcsBucket.load("de-zc-prefect-climate")
     gcs_block.upload_from_path(from_path=path, to_path=path)
     return
-
-
-@task()
-def fetch_station_list() -> dict:
-    """Fetches and returns a dictionary of station details."""
-    url = "https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/doc/ghcnd-stations.txt"
-    response = requests.get(url)
-    lines = response.text.split("\n")
-    stations = {}
-
-    for line in lines:
-        if line:
-            station_id = line[:11].strip()
-            latitude = line[12:20].strip()
-            longitude = line[21:30].strip()
-            elevation = line[31:37].strip()
-            stations[station_id] = {
-                "latitude": latitude,
-                "longitude": longitude,
-                "elevation": elevation,
-            }
-
-    return stations
-
-
-@task()
-def generate_dataset_url(station: str) -> str:
-    """Generates dataset URL"""
-    return f"https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/access/{station}.csv"
 
 
 @task()
